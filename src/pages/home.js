@@ -1,6 +1,38 @@
 import 'preline/preline'
+import { useEffect, useState } from 'react';
 
 function HomePage(){
+  const Users = [
+    {userName: "User A", userID: "@user001", userImage:""},
+    {userName: "User B", userID: "@user002", userImage:""},
+    {userName: "User C", userID: "@user003", userImage:""}
+  ]
+
+  const Posts = [
+    {},
+    {},
+    {}
+  ]
+
+  const [users, setUsers] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(()=>{
+    setUsers(Users);
+  }, [])
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`API nhận 1 cái gì đó`)
+  //     .then((response) => {
+  //       console.log(response.data.items);
+  //       set???(response.data.items);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching options:", error);
+  //     });
+  // }, []);
+
   return(
     <div className="app">     
     {/* post  */}
@@ -201,18 +233,25 @@ function HomePage(){
 
           <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
             <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Maybe you know</li>            
-            <li className="flex items-center justify-between gap-4 ml-4 mr-4"> 
-              <div className="flex gap-4 items-center">
-                <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
-                <div>
-                  <div className="text-lg font-bold"> User E</div>
-                  <div className="text-xs font-normal"> @User005</div>
-                </div>
-              </div>              
-              <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
-                Follow
-              </button>
-            </li>           
+            
+            {users.map((user, index)=>{
+              return(
+              <>
+                <li className="flex items-center justify-between gap-4 ml-4 mr-4"> 
+                <div className="flex gap-4 items-center">
+                  <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
+                  <div>
+                    <div className="text-lg font-bold">{user.userName}</div>
+                    <div className="text-xs font-normal">{user.userID}</div>
+                  </div>
+                </div>              
+                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
+                  Follow
+                </button>
+                </li>
+              </>
+            )})}
+
           </ul>
 
 
