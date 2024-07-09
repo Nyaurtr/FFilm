@@ -185,7 +185,7 @@ function HomePage(){
         </div>    
         
         {/* trending */}
-        <div className= "sticky top-10 flex flex-col w-[900px] gap-4">
+        <div className= "self-start sticky top-10 flex flex-col w-[900px] gap-4">
           <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl">
             <div className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Trending</div>
             <button type="button" className="inline-flex items-center gap-x-2 py-3 px-4 text-sm text-start font-medium text-gray-800 hover:text-red-600 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg focus:z-10 disabled:opacity-50 disabled:pointer-events-none">            
@@ -201,8 +201,8 @@ function HomePage(){
 
           <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
             <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Maybe you know</li>            
-            <li className="flex items-center gap-4 ml-4 mr-4"> 
-              <div>
+            <li className="flex items-center justify-between gap-4 ml-4 mr-4"> 
+              <div className="flex gap-4 items-center">
                 <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
                 <div>
                   <div className="text-lg font-bold"> User E</div>
