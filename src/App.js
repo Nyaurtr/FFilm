@@ -5,9 +5,16 @@ import "preline/preline";
 import HomePage from "./pages/home";
 import Notifications from "./pages/notifications";
 import SuggestionsPage from "./pages/suggestions";
-import FollowingPage from "./pages/following.js";
+import FollowingPage from "./pages/following";
 import Messenger from "./pages/messenger";
-import MarketplacePage from './pages/marketplace.js';
+import MarketplacePage from './pages/marketplace';
+import LoginPage from './pages/login';
+import ResetPWPage from './pages/resetpw';
+import SignupPage from './pages/signup';
+
+import Popuppost from './components/popuppost';
+import PopupPoster from './components/popupposted';
+import ProfilePage from './pages/profile';
 
 function App() {
   const location = useLocation();
@@ -21,10 +28,14 @@ function App() {
   ]
 
   const [userAccount, setUserAccount] = useState([]);
-
+  const [popupPost, setPopupPost] = useState(false);
+  const [popupPoster, setPopupPoster] = useState(false);
+  
   useEffect(() => {
     setUserAccount(UserAccount);
   }, []);
+
+  
 
   return (
     <div className='app'>
@@ -39,7 +50,8 @@ function App() {
           </div>
       </div>
       
-      <div id="application-sidebar-dark" className="m-2 hs-overlay [--auto-close:lg] justify-center hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-red-900 border-e border-red-800 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-red-100 [&::-webkit-scrollbar-thumb]:bg-red-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 rounded-lg">
+      <div id="application-sidebar-dark" className="justify-center m-2 hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-red-900 border-e border-red-800 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-red-100 [&::-webkit-scrollbar-thumb]:bg-red-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 rounded-lg">
+        <div className="flex-col flex w-full h-full justify-between">
           <div>
             <div className="px-6">
             <Link to="/home"className="flex-none text-xl font-semibold text-white" aria-label="Brand">LOGO FFILM</Link>
@@ -88,37 +100,57 @@ function App() {
                     <svg className="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                     Messenger
                 </Link>
-                </li>
+                </li>                
             </ul>
             </nav>
           </div>
-          <div className="flex gap-4 items-center mr-4 ml-4 m-4">
-            <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
-            {userAccount.map((user, index) => {
-              return(
-                <>
-                  <div>
-                    <div className="text-lg font-bold text-white">{user.userName}</div>
-                    <div className="text-xs font-normal text-white">{user.userID}</div>
-                  </div>
-                </>
+          <div>
+          {userAccount.map((user, index) => {
+            return(
+              <>
+                <Link to="/profile" className="flex gap-4 items-center mr-4 ml-4 m-4 p-2 rounded-xl hover:bg-black hover:bg-opacity-25">
+                  <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
+                    <div>
+                      <div className="text-lg font-bold text-white">{user.userName}</div>
+                      <div className="text-xs font-normal text-white">{user.userID}</div>
+                    </div>
+                </Link>
+              </>
               )
-            })}
+              })}
+            <button type="button" onClick={() => setPopupPost(true)} class="mr-4 ml-4 py-3 px-4 w-10/12 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-white text-red-800 hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none">
+              POST
+            </button>
           </div>
-          <button type="button" class="mr-4 ml-4 py-3 px-4 w-10/12 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-white text-red-800 hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none">
-            POST
-          </button>
+        </div>
       </div>
 
+      <Popuppost trigger={popupPost} setTrigger={setPopupPost} onClose={(e) => {
+        console.log(e.target);
+        if (e.target.id === "maindiv") {
+          setPopupPost(false);
+        }
+      }}/>
+      <PopupPoster trigger={popupPoster} setTrigger={setPopupPoster} onClose={(e) => {
+        console.log(e.target);
+        if (e.target.id === "maindiv") {
+          setPopupPoster(false);
+        }
+      }}/>
       <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">    
         <Routes>
-          <Route path="/" element={<HomePage/>} />
-          <Route path="/home" element={<HomePage/>} />
-          <Route path="/marketplace" element={<MarketplacePage/>} />
-          <Route path="/notifications" element={<Notifications/>} />
-          <Route path="/suggestions" element={<SuggestionsPage/>} />
-          <Route path="/following" element={<FollowingPage/>} />
+          <Route path="/" element={<HomePage setTrigger={setPopupPost} setTriggerPost={setPopupPoster}/>} />
+          <Route path="/home" element={<HomePage setTrigger={setPopupPost} setTriggerPost={setPopupPoster}/>} />
+          <Route path="/marketplace/*" element={<MarketplacePage/>} />
+          <Route path="/notifications" element={<Notifications setTriggerPost={setPopupPoster}/>} />
+          <Route path="/suggestions" element={<SuggestionsPage setTriggerPost={setPopupPoster}/>} />
+          <Route path="/following" element={<FollowingPage setTriggerPost={setPopupPoster}/>} />
           <Route path="/messenger" element={<Messenger/>} />
+          <Route path="/profile" element={<ProfilePage/>} />
+
+          <Route path="/loginTest" element={<LoginPage/>} />
+          <Route path="/signupPageTest" element={<SignupPage/>} />
+          <Route path="/resetPWPageTest" element={<ResetPWPage/>} />
         </Routes>
       </div>
     </div>
