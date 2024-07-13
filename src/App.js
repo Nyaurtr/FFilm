@@ -137,7 +137,7 @@ function App() {
           setPopupPoster(false);
         }
       }}/>
-      <div className="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">    
+      <div className="w-full pt-5 px-4 sm:px-6 md:px-8 lg:ps-72">    
         <Routes>
           <Route path="/" element={<HomePage setTrigger={setPopupPost} setTriggerPost={setPopupPoster}/>} />
           <Route path="/home" element={<HomePage setTrigger={setPopupPost} setTriggerPost={setPopupPoster}/>} />

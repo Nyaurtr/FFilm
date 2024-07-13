@@ -52,7 +52,7 @@ function HomePage(props){
           {posts.map((post, index) =>{
             return(
               <>
-                <div className="flex-col w-full gap-4 ">
+                <div className="flex-col w-full gap-4 cursor-pointer">
                   <div className="flex flex-col bg-white border border-gray-200 shadow-xl rounded-xl p-4 gap-2">    
                     <div className='flex gap-2 justify-between'>
                       <div className="flex gap-4">
