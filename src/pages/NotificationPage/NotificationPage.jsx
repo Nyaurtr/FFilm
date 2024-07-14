@@ -16,7 +16,7 @@ const NotificationPage = (props) =>{
     }, []);
 
     return(
-        <div className="app slide-up max-w-full px-4 py-10 mx-auto">
+        <div className="app slide-up min-w-full mx-auto rounded-xl shadow-2xl">
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">

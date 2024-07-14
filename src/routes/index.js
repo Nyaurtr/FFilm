@@ -9,6 +9,8 @@ import SuggestionsPage from "../pages/SuggestionPage/SuggestionPage";
 import LoginPage from "../pages/SigninPage/LoginPage";
 import SignupPage from "../pages/SigninPage/SignupPage"; 
 import ResetPasswordPage from "../pages/SigninPage/ResetPasswordPage";
+import AdminPage from "../pages/AdminPage/AdminPage";
+import SearchPage from "../pages/SearchPage/SearchPage";
 
 export const routes = [
     {
@@ -52,6 +54,12 @@ export const routes = [
         isShowSidebar: true,
     },
     {
+        path: '/search',
+        page: SearchPage,
+        props: { setTriggerPost: 'setPopupPoster' },
+        isShowSidebar: true,
+    },
+    {
         path: '/profile',
         page: ProfilePage,
         isShowSidebar: true,
@@ -69,6 +77,11 @@ export const routes = [
     {
         path: '/resetPassword',
         page: ResetPasswordPage,
+        isShowSidebar: false,
+    },
+    {
+        path: '/adminpage',
+        page: AdminPage,
         isShowSidebar: false,
     },
 ];
