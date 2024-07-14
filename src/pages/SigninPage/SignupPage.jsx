@@ -1,6 +1,6 @@
 import 'preline/preline';
 
-function SignupPage() {
+const SignupPage = () => {
     return(
         <div>
             <main id="content" className="w-full max-w-md mx-auto p-6">

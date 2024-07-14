@@ -1,7 +1,7 @@
 import 'preline/preline';
 
 
-function LoginPage(){
+const LoginPage = () =>{
     return(
         <div className="app">
             <main id="content" className="w-full max-w-md mx-auto p-6">

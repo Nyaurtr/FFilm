@@ -1,8 +1,8 @@
-function ProfilePage() {
+const ProfilePage = () => {
     return(
         <main id="content" className="flex border border-gray-100 rounded-xl shadow-2xl">
         <div>
-            <div className="relative">
+            <div className="relative slide-up">
                 <div className="overflow-hidden absolute min-h-[25rem] min-w-full rounded-t-xl">
                     <div aria-hidden="true" className="flex -z-[1] absolute -top-40 start-0 rounded-lg">
                         <img className="" src="https://images.squarespace-cdn.com/content/v1/59cc767e8dd04135bf0c554c/1607053823960-6MKT4ZVLF7FPOSZ6IFCX/IMG_0339.jpg" alt="userAavatar"/>                        

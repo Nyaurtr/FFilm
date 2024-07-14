@@ -1,0 +1,74 @@
+import FollowingPage from "../pages/FollowingPage/FollowingPage";
+import HomePage from "../pages/HomePage/HomePage";
+import MarketplacePage from "../pages/MarketplacePage/MarketplacePage";
+import Messenger from "../pages/MessengerPage/MessengerPage";
+import NotificationPage from "../pages/NotificationPage/NotificationPage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import SuggestionsPage from "../pages/SuggestionPage/SuggestionPage";
+
+import LoginPage from "../pages/SigninPage/LoginPage";
+import SignupPage from "../pages/SigninPage/SignupPage"; 
+import ResetPasswordPage from "../pages/SigninPage/ResetPasswordPage";
+
+export const routes = [
+    {
+        path: '/',
+        page: HomePage,
+        props: { setTrigger: 'setPopupPost', setTriggerPost: 'setPopupPoster' },
+        isShowSidebar: true,
+    },
+    {
+        path: '/home',
+        page: HomePage,
+        props: { setTrigger: 'setPopupPost', setTriggerPost: 'setPopupPoster' },
+        isShowSidebar: true,
+    },
+    {
+        path: '/marketplace/*',
+        page: MarketplacePage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/notifications',
+        props: { setTriggerPost: 'setPopupPoster' },
+        page: NotificationPage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/suggestions',
+        props: { setTriggerPost: 'setPopupPoster' },
+        page: SuggestionsPage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/following',
+        props: { setTriggerPost: 'setPopupPoster' },
+        page: FollowingPage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/messenger',
+        page: Messenger,
+        isShowSidebar: true,
+    },
+    {
+        path: '/profile',
+        page: ProfilePage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/login',
+        page: LoginPage,
+        isShowSidebar: false,
+    },
+    {
+        path: '/signup',
+        page: SignupPage,
+        isShowSidebar: false,
+    },
+    {
+        path: '/resetPassword',
+        page: ResetPasswordPage,
+        isShowSidebar: false,
+    },
+];

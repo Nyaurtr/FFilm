@@ -1,7 +1,7 @@
 import 'preline/preline';
 import { useState, useEffect } from 'react';
 
-function FollowingPage(props){
+const FollowingPage = (props) => {
     const Users = [
         {userName: "User A", userID: "@user001", userImage:"", numberNewPost:"123"},
         {userName: "User B", userID: "@user002", userImage:"", numberNewPost:"123"},
@@ -44,7 +44,7 @@ function FollowingPage(props){
       return(
         <div className="app">     
         {/* post  */}
-          <div className="flex w-full h-full gap-4">     
+          <div className="flex w-full h-full gap-4 slide-up">     
             <div className='flex-col space-y-4'>                      
               {posts.map((post, index) =>{
               return(

@@ -2,7 +2,7 @@ import 'preline/preline'
 import { useState, useEffect } from 'react';
 
 
-function Notifications(props){
+const NotificationPage = (props) =>{
 
     const notifications = [
         {Title: "TitlePost", userName: "user B", userID: "@user002", userImage:"", msg: "user B had an comment on your post", detail: "I love your post",date:"2017-06-01T08:30", type: "Comments"},
@@ -16,7 +16,7 @@ function Notifications(props){
     }, []);
 
     return(
-        <div className="app max-w-full px-4 py-10 mx-auto">
+        <div className="app slide-up max-w-full px-4 py-10 mx-auto">
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
@@ -131,4 +131,4 @@ function Notifications(props){
     )
 }
 
-export default Notifications;
+export default NotificationPage;

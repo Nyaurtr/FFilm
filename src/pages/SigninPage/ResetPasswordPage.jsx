@@ -1,6 +1,6 @@
 import 'preline/preline';
 
-function ResetPWPage() {
+const ResetPasswordPage = () => {
     return (
     <div>
     <main id="content" className="w-full max-w-md mx-auto p-6">  
@@ -43,4 +43,4 @@ function ResetPWPage() {
     )
 }
 
-export default ResetPWPage;
+export default ResetPasswordPage;

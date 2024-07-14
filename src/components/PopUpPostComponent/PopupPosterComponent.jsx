@@ -1,7 +1,7 @@
 import 'preline/preline'
 import { useState, useEffect } from 'react';
 
-function PopupPoster(props) {
+const PopupPosterComponent = (props) => {
     const Comments = [
         { avatar: 'https://via.placeholder.com/150', username: 'Jane Smith', userId: 'janesmith', text: 'Amazing photo!' },
         { avatar: 'https://via.placeholder.com/150', username: 'Bob Johnson', userId: 'bobjohnson', text: 'Great shot!' },
@@ -14,8 +14,8 @@ function PopupPoster(props) {
     }, []);
 
     return(props.trigger)?(
-        <div id="maindiv" onClick={props.onClose} className="app fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[10000] min-h-full min-w-full flex-col overflow-hidden py-6 sm:py-12">
-            <div className="bg-white rounded-lg overflow-hidden w-full max-w-6xl mx-4">
+        <div id="maindiv" onClick={props.onClose} className="app opacity-up fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[10000] min-h-full min-w-full flex-col overflow-hidden py-6 sm:py-12">
+            <div className="bg-white rounded-lg overflow-hidden w-full max-w-6xl mx-4 slide-up">
                 <div className="flex flex-col md:flex-row">
                 <div className="w-full md:w-2/3">
                     <img src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Full size" className="object-contain h-full w-full" />
@@ -57,4 +57,4 @@ function PopupPoster(props) {
         </div>
     ):"";
 }
-export default PopupPoster
+export default PopupPosterComponent;

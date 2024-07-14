@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useLocation, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
 import 'preline/preline';
 
-import FilmRoll from '../components/filmRoll';
-import CameraFilm from '../components/cameraFilm';
-import CameraAdditional from '../components/cameraAdditional';
+import FilmRollPage from './FilmRollPage';
+import CameraFilmPage from './CameraFilmPage';
+import CameraAdditionalPage from './CameraAdditionalPage';
 
-function MarketplacePage() {
+const MarketplacePage = () => {
   return (
     <>
       <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white text-sm py-3 md:py-0">
@@ -28,10 +27,10 @@ function MarketplacePage() {
 
       <div className="flex">
         <Routes>
-          <Route path="/" element={<FilmRoll />} />
-          <Route path="/filmroll" element={<FilmRoll />} />
-          <Route path="/camerafilm" element={<CameraFilm />} />
-          <Route path="/cameraadditional" element={<CameraAdditional />} />
+          <Route path="/" element={<FilmRollPage />} />
+          <Route path="/filmroll" element={<FilmRollPage />} />
+          <Route path="/camerafilm" element={<CameraFilmPage />} />
+          <Route path="/cameraadditional" element={<CameraAdditionalPage />} />
         </Routes>
       </div>
     </>

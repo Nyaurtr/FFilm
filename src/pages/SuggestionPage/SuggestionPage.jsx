@@ -1,7 +1,7 @@
 import 'preline/preline';
 import { useState, useEffect } from 'react';
 
-function SuggestionsPage(props){
+const SuggestionsPage = (props) => {
     const Users = [
         {userName: "User A", userID: "@user001", userImage:""},
         {userName: "User B", userID: "@user002", userImage:""},
@@ -37,7 +37,7 @@ function SuggestionsPage(props){
       // }, []);
     
       return(
-        <div className="app">     
+        <div className="app slide-up">     
         {/* post  */}
           <div className="flex w-full h-full gap-4">     
             <div className='flex-col space-y-4'>                  

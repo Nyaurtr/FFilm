@@ -1,7 +1,7 @@
-function Popuppost (props){
+const PopupPostComponent = (props) =>{
     return(props.trigger) ? (
-        <div id="maindiv" onClick={props.onClose} className ="app z-[10000] fixed flex min-h-full min-w-full flex-col justify-center overflow-hidden bg-black bg-opacity-15 py-6 sm:py-12">
-            <div class="w-7/12 mx-auto bg-white p-4 rounded-lg shadow-md ">
+        <div id="maindiv" onClick={props.onClose} className ="app z-[10000] fixed flex min-h-full min-w-full flex-col justify-center overflow-hidden bg-black bg-opacity-75 py-6 sm:py-12 opacity-up">
+            <div class="w-7/12 mx-auto bg-white p-4 rounded-lg shadow-md slide-up ">
                 <div class="flex items-center space-x-4 mb-4">
                 <img class="w-12 h-12 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar"/>
                 <input class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" type="text" placeholder="What's on your mind?"/>
@@ -19,4 +19,4 @@ function Popuppost (props){
         </div>
     ) : "";
 };
-export default Popuppost;
+export default PopupPostComponent;

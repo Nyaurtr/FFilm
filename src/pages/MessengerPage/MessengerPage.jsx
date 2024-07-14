@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Messenger(){
-    
+const MessengerPage = () => {    
     const messages = [
         {
             reciverName: "John Doe",
@@ -14,7 +13,7 @@ function Messenger(){
                 { text: "Hi", timestamp: "2024-07-13T14:49:00.000Z" },
                 { text: "I'm fine", timestamp: "2024-07-13T14:51:00.000Z" }
             ]
-        }
+        },
     ];
     
     const [currentMessage, setCurrentMessage] = useState([]);
@@ -24,7 +23,7 @@ function Messenger(){
     },[]);
     
     return (
-        <div className="app min-h-[96vh] flex rounded-2xl border border-gray-300 shadow-2xl">
+        <div className="app slide-up min-h-[96vh] flex rounded-2xl border border-gray-300 shadow-2xl">
           {/* Sidebar */}
           <div className="w-1/4 bg-red-900 text-white flex flex-col rounded-l-2xl">
             <div className="p-4 border-b border-red-700">
@@ -76,4 +75,4 @@ function Messenger(){
       );
 }
 
-export default Messenger;
+export default MessengerPage;
