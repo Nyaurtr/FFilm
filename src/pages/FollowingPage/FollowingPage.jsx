@@ -56,7 +56,7 @@ const FollowingPage = (props) => {
             </div>    
             
             {/* trending */}
-            <div className= "self-start sticky top-10 flex flex-col w-[900px] gap-4 shadow-2xl rounded-xl">
+            <div className= "self-start sticky flex flex-col w-[900px] gap-4 shadow-2xl rounded-xl">
               <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
                 <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Followed</li>            
                 

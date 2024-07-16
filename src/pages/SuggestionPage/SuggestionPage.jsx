@@ -52,7 +52,7 @@ const SuggestionsPage = (props) => {
             </div>    
             
             {/* trending */}
-            <div className= "self-start sticky top-10 flex flex-col w-[900px] gap-4">
+            <div className= "self-start sticky flex flex-col w-[900px] gap-4">
               <div className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl">
                 <div className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Trending</div>
                 <button type="button" className="inline-flex items-center gap-x-2 py-3 px-4 text-sm text-start font-medium text-gray-800 hover:text-red-600 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg focus:z-10 disabled:opacity-50 disabled:pointer-events-none">            

@@ -7,7 +7,7 @@ import PopupPostComponent from '../PopUpPostComponent/PopupPostComponent'
 const DefaultComponent = ({children}) => {
 
     const UserAccount = [
-        {userName: "userA", userID: "@user0001"}
+        {userName: "userD", userID: "@user0001"},
         ]
 
         const [userAccount, setUserAccount] = useState([]);

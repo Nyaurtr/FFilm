@@ -9,8 +9,10 @@ import SuggestionsPage from "../pages/SuggestionPage/SuggestionPage";
 import LoginPage from "../pages/SigninPage/LoginPage";
 import SignupPage from "../pages/SigninPage/SignupPage"; 
 import ResetPasswordPage from "../pages/SigninPage/ResetPasswordPage";
-import AdminPage from "../pages/AdminPage/AdminPage";
+import AdminPage from "../admin/pages/AdminPage/AdminPage";
 import SearchPage from "../pages/SearchPage/SearchPage";
+import UserPage from "../admin/pages/UserPage/UserPage";
+import StatPage from "../admin/pages/StatPage/StatPage";
 
 export const routes = [
     {
@@ -80,8 +82,26 @@ export const routes = [
         isShowSidebar: false,
     },
     {
-        path: '/adminpage',
+        path: '/adminpage/*',
         page: AdminPage,
         isShowSidebar: false,
+    },
+];
+
+export const adminroutes = [
+    {
+        path: '/',
+        page: StatPage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/user',
+        page: UserPage,
+        isShowSidebar: true,
+    },
+    {
+        path: '/stat',
+        page: StatPage,
+        isShowSidebar: true,
     },
 ];
