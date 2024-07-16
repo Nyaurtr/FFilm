@@ -28,6 +28,7 @@ function App() {
           setPopupPost(false);
         }
       }}/>
+      
       <PopupPosterComponent trigger={popupPoster} setTrigger={setPopupPoster} onClose={(e) => {
         console.log(e.target);
         if (e.target.id === "maindiv") {

@@ -1,9 +1,11 @@
 import 'preline/preline';
+import ffilm from '../../assets/image/ffilm.svg'
+import {Link} from 'react-router-dom'
 
 const SignupPage = () => {
     return(
-        <div>
-            <main id="content" className="w-full max-w-md mx-auto p-6">
+        <div className='flex items-center justify-center min-h-screen min-w-screen'>
+            <div className="w-full max-w-md mx-auto p-6">
         
                 <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm">
                     <div className="p-4 sm:p-7">
@@ -11,9 +13,9 @@ const SignupPage = () => {
                         <h1 className="block text-2xl font-bold text-gray-800">Sign up</h1>
                         <p className="mt-2 text-sm text-gray-600">
                         Already have an account?
-                        <a className="text-red-600 decoration-2 hover:underline font-medium" href="/src/views/login.html">
+                        <Link to="/login" className="text-red-600 decoration-2 hover:underline font-medium" href="/src/views/login.html">
                             Sign in here
-                        </a>
+                        </Link>
                         </p>
                     </div>
             
@@ -73,7 +75,7 @@ const SignupPage = () => {
                     </div>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     )
 }
