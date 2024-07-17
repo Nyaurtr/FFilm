@@ -1,11 +1,12 @@
 import 'preline/preline';
 import {Link} from 'react-router-dom'
+import background from '../../assets/image/background.jpg'
 
 const ResetPasswordPage = () => {
     return (
-    <div className='flex items-center justify-center min-h-screen min-w-screen'>
-      <div className="w-full max-w-md mx-auto p-6">  
-        <div className="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm">
+      <div className='relative flex items-center justify-center min-h-screen min-w-screen bg-cover bg-center' style={{ backgroundImage: `url(${background})` }}>
+      <div className="w-full max-w-md mx-auto bg-white/30 backdrop-blur-lg border border-white/30 rounded-xl shadow-sm">
+          <div className="mt-7">
           <div className="p-4 sm:p-7">
             <div className="text-center">
               <h1 className="block text-2xl font-bold text-gray-800">Forgot password?</h1>

@@ -1,11 +1,12 @@
 import 'preline/preline';
 import {Link} from 'react-router-dom'
 import ffilm from '../../assets/image/ffilm.svg'
+import background from '../../assets/image/background.jpg'
 
 const LoginPage = () => {
     return (
-        <div className='flex items-center justify-center min-h-screen min-w-screen'>
-            <div className="flex flex-col items-center justify-between w-[30rem] h-[35rem] bg-white border border-gray-200 rounded-xl shadow-xl">
+        <div className='relative flex items-center justify-center min-h-screen min-w-screen bg-cover bg-center' style={{ backgroundImage: `url(${background})` }}>
+            <div className="w-full max-w-md mx-auto bg-white/30 backdrop-blur-lg border border-white/30 rounded-xl shadow-sm">
                 <div className='flex justify-center flex-row items-end gap-4 mt-10'>
                     <div className='block text-5xl font-bold text-gray-800'>Welcome to</div>
                     <img src={ffilm} alt="Preline" className="w-28 h-auto" />
