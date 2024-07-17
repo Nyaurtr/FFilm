@@ -1,10 +1,12 @@
 import 'preline/preline';
 import background from '../../assets/image/background.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState} from 'react'
 import axios from 'axios'
 
 const SignupPage = () => {
+
+    const navigator = useNavigate();
 
     const [user, setUser] = useState({
         username:"",
@@ -17,12 +19,15 @@ const SignupPage = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post("http://localhost:8000/api/user/signup", user);
-            setResponseMessage(response.data.message); // Assuming the response has a 'message' field
-        } catch (err) {
-            setResponseMessage(err.response?.data?.message || 'An error occurred'); // Set error message
-        }
+        await axios.post("http://localhost:8000/api/user/signup", user)
+        .then((response) => {
+            setResponseMessage(response.data.message);
+            alert(response.data.message);
+            navigator("/home")
+        })
+        .catch((err)=>{
+            setResponseMessage(err.response?.data?.message || 'An error occurred');
+        })
     }
 
     const changeHandler = (e) => {

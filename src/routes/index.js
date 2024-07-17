@@ -67,21 +67,6 @@ export const routes = [
         isShowSidebar: true,
     },
     {
-        path: '/login',
-        page: LoginPage,
-        isShowSidebar: false,
-    },
-    {
-        path: '/signup',
-        page: SignupPage,
-        isShowSidebar: false,
-    },
-    {
-        path: '/resetPassword',
-        page: ResetPasswordPage,
-        isShowSidebar: false,
-    },
-    {
         path: '/adminpage/*',
         page: AdminPage,
         isShowSidebar: false,
