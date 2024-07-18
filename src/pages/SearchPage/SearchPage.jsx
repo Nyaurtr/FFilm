@@ -1,33 +1,87 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PostComponent from '../../components/PostComponent/PostComponent';
+import 'preline/preline';
+import { AuthContext } from '../../assets/contexts/AuthContext';
+import Intercept from '../../Tools/refrech';
+import axios from 'axios';
 
 const SearchPage = (props) => {
+  const { user } = useContext(AuthContext);
+    const [loadingNewPosts, setLoadingNewPosts] = useState(true);
+    const [currPage, setCurrPage] = useState(1);
+    const [prevPage, setPrevPage] = useState(0);
+    const [posts, setPosts] = useState([]);
+    const listInnerRef = useRef();
+    const [wasLastList, setWasLastList] = useState(false);
+
   const Users = [
     {userName: "user B", userID: "@user002", userImage:"", numberFollower:"1655", description: "user B had an comment on your post" ,dateJoin:"2017-06-01", verify: "verified"},
     {userName: "user C", userID: "@user003", userImage:"", numberFollower:"1655", description: "user C had like your post" ,dateJoin:"2017-06-01", verify: "non-verified"},
   ];
-  const Posts = [
-    {user: {
-      userName: "User A",
-      userAvatar: "",
-    },
-    dateUploaded: "2017-06-01T08:30", imageUploaded: "", description: "LOREM IPSUM!!", numberLike: "222", numberDislike: "9999",},
-    {user: {
-      userName: "User A",
-      userAvatar: "",
-    },
-    dateUploaded: "2017-06-01T08:30", imageUploaded: "", description: "LOREM IPSUM!!", numberLike: "222", numberDislike: "9999",},
- ]
+  
 
   const [users, setUsers] = useState([]);
-  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
       setUsers(Users);
-      setPosts(Posts);
   }, []);
+
+  props.onChange(0);
+
+  const axiosJWT = axios.create();
+
+  Intercept(axiosJWT);
+  useEffect(() => {
+    if (props.rerenderFeed === 1) {
+      setCurrPage(1);
+      setPrevPage(0);
+      setPosts([]);
+      setWasLastList(false);
+    }
+    props.onChange(0);
+    const fetchPosts = async () => {
+      const res = await axiosJWT.get(
+        `http://localhost:8000/api/article/timeline?page=${currPage}`,
+        { headers: { Authorization: "Bearer " + user.accessToken } }
+      );
+      if (res.data.Articles.length === 1) {
+        setWasLastList(true);
+        setLoadingNewPosts(false);
+      }
+      if (!res.data.Articles.length) {
+        setWasLastList(true);
+        setLoadingNewPosts(false);
+        return;
+      }
+      setPrevPage(currPage);
+      const sortedPost = [...posts, ...res.data.Articles].sort((p1, p2) => {
+        return new Date(p2.createdAt) - new Date(p1.createdAt);
+      });
+      setPosts(sortedPost);
+    };
+    if (!wasLastList && prevPage !== currPage) {
+      fetchPosts();
+    }
+  }, [
+    currPage,
+    wasLastList,
+    prevPage,
+    posts,
+    loadingNewPosts,
+    axiosJWT,
+    user.accessToken,
+    props,
+  ]);
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        setCurrPage(currPage + 1);
+      }
+    }
+  };
 
   return (
     <div className='app slide-up flex flex-col rounded-2xl gap-4'>
@@ -105,7 +159,7 @@ const SearchPage = (props) => {
                                     <td className="size-px whitespace-nowrap align-top">
                                     <Link to="/profile" className="block p-6" href="#test">
                                         <div className="flex items-center gap-x-3">
-                                        <img className="inline-block size-[38px] rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description"/>
+                                        <img className="inline-block size-[38px] rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Description"/>
                                         <div className="grow">
                                             <span className="block text-sm font-semibold text-gray-800">{user.userName}</span>
                                             <span className="block text-sm text-gray-500">{user.userID}</span>
@@ -280,14 +334,14 @@ const SearchPage = (props) => {
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
             <div className="p-1.5 min-w-full inline-block align-middle">
-                <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                <div onScroll={onScroll} ref={listInnerRef} className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
                     <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 text-3xl font-bold">
                     Posts
                     </div>
                     
                     {posts.map((post, index) =>{
                     return(
-                      <div className='flex p-4'>
+                      <div className='flex p-4 flex-col items-center'>
                         <PostComponent post={post} setTrigger={props} />  
                       </div>
                     )

@@ -34,21 +34,22 @@ export const routes = [
     },
     {
         path: '/notifications',
-        props: { setTriggerPost: 'setPopupPoster' },
+        props: { setTriggerPost: 'setPopupPoster'},
         page: NotificationPage,
         isShowSidebar: true,
     },
     {
         path: '/suggestions',
-        props: { setTriggerPost: 'setPopupPoster' },
+        props: { setTriggerPost: 'setPopupPoster', rerenderFeed:"rerenderFeed", onChange:"handleChange"},
         page: SuggestionsPage,
         isShowSidebar: true,
     },
     {
         path: '/following',
-        props: { setTriggerPost: 'setPopupPoster' },
+        props: { setTriggerPost: 'setPopupPoster', rerenderFeed:"rerenderFeed", onChange:"handleChange"  },
         page: FollowingPage,
         isShowSidebar: true,
+        
     },
     {
         path: '/messenger',
@@ -58,7 +59,7 @@ export const routes = [
     {
         path: '/search',
         page: SearchPage,
-        props: { setTriggerPost: 'setPopupPoster' },
+        props: { setTriggerPost: 'setPopupPoster', rerenderFeed:"rerenderFeed", onChange:"handleChange" },
         isShowSidebar: true,
     },
     {

@@ -1,55 +1,105 @@
 import 'preline/preline';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import PostComponent from '../../components/PostComponent/PostComponent';
+import FollowedUserTagComponent from '../../components/UserTagComponent/FollowedUserTagComponent';
+import { AuthContext } from '../../assets/contexts/AuthContext';
+import Intercept from '../../Tools/refrech';
+import axios from 'axios';
 import NotFollowedUserTagComponent from '../../components/UserTagComponent/NotFollowedUserTagComponent';
 
+
 const SuggestionsPage = (props) => {
+    const { user } = useContext(AuthContext);
+    const [loadingNewPosts, setLoadingNewPosts] = useState(true);
+    const [currPage, setCurrPage] = useState(1);
+    const [prevPage, setPrevPage] = useState(0);
+    const [posts, setPosts] = useState([]);
+    const listInnerRef = useRef();
+    const [wasLastList, setWasLastList] = useState(false);
+
     const Users = [
-        {userName: "User A", userID: "@user001", userImage:"", follow: true},
-        {userName: "User B", userID: "@user002", userImage:"", follow: false},
-        {userName: "User C", userID: "@user003", userImage:"", follow: false}
-      ]
-    
-      const Posts = [
-        {user: {
-          userName: "User A",
-          userAvatar: "",
-        },
-        dateUploaded: "2017-06-01T08:30", imageUploaded: "", description: "LOREM IPSUM!!", numberLike: "222", numberDislike: "9999",},
+        {userName: "User A", userID: "@user001", userImage:"", numberNewPost:"123"},
+        {userName: "User B", userID: "@user002", userImage:"", numberNewPost:"123"},
+        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"12"},
+        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"123"},
+        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"123"},
+        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"96"},
+        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"123"},
+        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"22"},
       ]
     
       const [users, setUsers] = useState([]);
-      const [posts, setPosts] = useState([]);
     
       useEffect(()=>{
         setUsers(Users);
-        setPosts(Posts);
       }, [])
-    
-      // useEffect(() => {
-      //   axios
-      //     .get(`API nhận 1 cái gì đó`)
-      //     .then((response) => {
-      //       console.log(response.data.items);
-      //       set???(response.data.items);
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error fetching options:", error);
-      //     });
-      // }, []);
+
+      props.onChange(0);
+
+  const axiosJWT = axios.create();
+
+  Intercept(axiosJWT);
+  useEffect(() => {
+    if (props.rerenderFeed === 1) {
+      setCurrPage(1);
+      setPrevPage(0);
+      setPosts([]);
+      setWasLastList(false);
+    }
+    props.onChange(0);
+    const fetchPosts = async () => {
+      const res = await axiosJWT.get(
+        `http://localhost:8000/api/article/timeline?page=${currPage}`,
+        { headers: { Authorization: "Bearer " + user.accessToken } }
+      );
+      if (res.data.Articles.length === 1) {
+        setWasLastList(true);
+        setLoadingNewPosts(false);
+      }
+      if (!res.data.Articles.length) {
+        setWasLastList(true);
+        setLoadingNewPosts(false);
+        return;
+      }
+      setPrevPage(currPage);
+      const sortedPost = [...posts, ...res.data.Articles].sort((p1, p2) => {
+        return new Date(p2.createdAt) - new Date(p1.createdAt);
+      });
+      setPosts(sortedPost);
+    };
+    if (!wasLastList && prevPage !== currPage) {
+      fetchPosts();
+    }
+  }, [
+    currPage,
+    wasLastList,
+    prevPage,
+    posts,
+    loadingNewPosts,
+    axiosJWT,
+    user.accessToken,
+    props,
+  ]);
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        setCurrPage(currPage + 1);
+      }
+    }
+  };
     
       return(
-        <div className="app slide-up">     
+        <div className="app">     
         {/* post  */}
-          <div className="flex w-full h-full gap-4">     
-            <div className='flex-col space-y-4'>                  
-    
+          <div className="flex w-full h-full gap-4 slide-up">     
+            <div onScroll={onScroll} ref={listInnerRef} className='flex-col flex space-y-4 min-w-[75%] items-center'>                      
               {posts.map((post, index) =>{
               return(
-                <PostComponent post={post} setTrigger={props}/>
+                <PostComponent post={post} key={post._id} rerenderFeed={props.rerenderFeed} onChange={props.onChange} setTrigger={props}/>
               )
             })}  
-            </div>    
+            </div>  
             
             {/* trending */}
             <div className= "self-start sticky flex flex-col w-[900px] gap-4">

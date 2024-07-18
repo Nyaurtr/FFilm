@@ -49,7 +49,7 @@ const PostComponent = (props) => {
   
   return (
     <div>
-      <div className="flex-col w-full gap-4 cursor-pointer">
+      <div className="flex-col flex justify-between gap-4 cursor-pointer max-w-[50rem] max-h-[70rem] min-w-[50rem] min-h-[70rem]">
         <div className="flex flex-col bg-white border border-gray-200 shadow-xl rounded-xl p-4 gap-2">    
           <div className='flex gap-2 justify-between'>
             <div className="flex gap-4">

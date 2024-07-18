@@ -85,9 +85,9 @@ const HomePage = (props) => {
   return(
     <div className="app slide-up">     
     {/* post  */}
-      <div className="flex w-full h-full gap-4">     
-        <div onScroll={onScroll} ref={listInnerRef} className='flex-col space-y-4'>
-          <div className="flex bg-white border border-gray-200 shadow-xl rounded-xl p-4 w-full gap-3">
+      <div div className="flex w-full h-full gap-4 slide-up">     
+        <div onScroll={onScroll} ref={listInnerRef} className='flex-col flex space-y-4 min-w-[75%] items-center'>     
+          <div className="flex bg-white border border-gray-200 shadow-xl rounded-xl p-4 min-w-[75%] gap-3">
             <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
             <input type="text" onClick={() => props.setTrigger(true)} id="input-label" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-nne" placeholder="Which do you think right now?"/>
             <button type="button" onClick={() => props.setTrigger(true)} class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none">
