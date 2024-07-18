@@ -18,13 +18,13 @@ export const routes = [
     {
         path: '/',
         page: HomePage,
-        props: { setTrigger: 'setPopupPost', setTriggerPost: 'setPopupPoster' },
+        props: { setTrigger: 'setPopupPost', setTriggerPost: 'setPopupPoster', rerenderFeed:"rerenderFeed", onChange:"handleChange" },
         isShowSidebar: true,
     },
     {
         path: '/home',
         page: HomePage,
-        props: { setTrigger: 'setPopupPost', setTriggerPost: 'setPopupPoster' },
+        props: { setTrigger: 'setPopupPost', setTriggerPost: 'setPopupPoster', rerenderFeed:"rerenderFeed", onChange:"handleChange" },
         isShowSidebar: true,
     },
     {
@@ -65,6 +65,7 @@ export const routes = [
         path: '/profile/:username',
         page: ProfilePage,
         isShowSidebar: true,
+        props: {rerenderFeed:"rerenderFeed", onChange:"handleChange"}
     },
     {
         path: '/adminpage/*',

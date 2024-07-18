@@ -1,50 +1,92 @@
 import 'preline/preline'
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import PostComponent from '../../components/PostComponent/PostComponent';
 import NotFollowedUserTagComponent from '../../components/UserTagComponent/NotFollowedUserTagComponent';
 import { AuthContext } from '../../assets/contexts/AuthContext';
+import Intercept from '../../Tools/refrech';
+import axios from 'axios';
 
 const HomePage = (props) => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const [loadingNewPosts, setLoadingNewPosts] = useState(true);
+  const [currPage, setCurrPage] = useState(1);
+  const [prevPage, setPrevPage] = useState(0);
+  const [posts, setPosts] = useState([]);
+  const listInnerRef = useRef();
+  const [wasLastList, setWasLastList] = useState(false);
+
   const Users = [
-    {userName: "User A", userID: "@user001", userImage:"", follow: false},
-    {userName: "User B", userID: "@user002", userImage:"", follow: false},
-    {userName: "User C", userID: "@user003", userImage:"", follow: true}
+    {userName: "User A", userID: "@user001", userImage:"", follow: false}
   ]
 
-  const Posts = [
-    {user: {
-      userName: "User A",
-      userAvatar: "",
-    },
-    dateUploaded: "2017-06-01T08:30", imageUploaded: "", description: "LOREM IPSUM!!", numberLike: "222", numberDislike: "9999",},
- ]
-
   const [users, setUsers] = useState([]);
-  const [posts, setPosts] = useState([]);
 
   useEffect(()=>{
-    setUsers(Users);
-    setPosts(Posts);
-  }, [])
+    setUsers(Users)
+  },[])
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`API nhận 1 cái gì đó`)
-  //     .then((response) => {
-  //       console.log(response.data.items);
-  //       set???(response.data.items);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching options:", error);
-  //     });
-  // }, []);
+  props.onChange(0);
+
+  const axiosJWT = axios.create();
+
+  Intercept(axiosJWT);
+  useEffect(() => {
+    if (props.rerenderFeed === 1) {
+      setCurrPage(1);
+      setPrevPage(0);
+      setPosts([]);
+      setWasLastList(false);
+    }
+    props.onChange(0);
+    const fetchPosts = async () => {
+      const res = await axiosJWT.get(
+        `http://localhost:8000/api/article/timeline?page=${currPage}`,
+        { headers: { Authorization: "Bearer " + user.accessToken } }
+      );
+      if (res.data.Articles.length === 1) {
+        setWasLastList(true);
+        setLoadingNewPosts(false);
+      }
+      if (!res.data.Articles.length) {
+        setWasLastList(true);
+        setLoadingNewPosts(false);
+        return;
+      }
+      setPrevPage(currPage);
+      const sortedPost = [...posts, ...res.data.Articles].sort((p1, p2) => {
+        return new Date(p2.createdAt) - new Date(p1.createdAt);
+      });
+      setPosts(sortedPost);
+    };
+    if (!wasLastList && prevPage !== currPage) {
+      fetchPosts();
+    }
+  }, [
+    currPage,
+    wasLastList,
+    prevPage,
+    posts,
+    loadingNewPosts,
+    axiosJWT,
+    user.accessToken,
+    props,
+  ]);
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        setCurrPage(currPage + 1);
+      }
+    }
+  };
+
+  console.log(posts)
 
   return(
     <div className="app slide-up">     
     {/* post  */}
       <div className="flex w-full h-full gap-4">     
-        <div className='flex-col space-y-4'>
+        <div onScroll={onScroll} ref={listInnerRef} className='flex-col space-y-4'>
           <div className="flex bg-white border border-gray-200 shadow-xl rounded-xl p-4 w-full gap-3">
             <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
             <input type="text" onClick={() => props.setTrigger(true)} id="input-label" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-nne" placeholder="Which do you think right now?"/>
@@ -55,7 +97,7 @@ const HomePage = (props) => {
 
           {posts.map((post, index) =>{
             return(
-              <PostComponent post={post} setTrigger={props}/>
+              <PostComponent post={post} key={post._id} rerenderFeed={props.rerenderFeed} onChange={props.onChange} setTrigger={props}/>
             )
           })}              
         </div>    

@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment, useContext } from 'react';
+import { useState, useEffect, Fragment, useContext, useCallback } from 'react';
 import { useLocation, Routes, Route, Navigate } from 'react-router-dom';
 
 import "preline/preline";
@@ -17,6 +17,11 @@ function App() {
   const location = useLocation();
   // const [isAuthenticated, setIsAuthenticated] = useState(false)
   const { user } = useContext(AuthContext)
+
+  const [rerenderFeed, setRerenderFeed] = useState(0);
+  const handleChange = useCallback((newValue) => {
+    setRerenderFeed(newValue);
+  }, []);
 
 
   useEffect(() => {
