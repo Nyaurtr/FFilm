@@ -4,7 +4,6 @@ import ffilm from '../../assets/image/ffilm.svg'
 import background from '../../assets/image/background.jpg'
 import { useState} from 'react'
 import axios from 'axios'
-
 const LoginPage = () => {
     const [user, setUser] = useState({
         username:"",

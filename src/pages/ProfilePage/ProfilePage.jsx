@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+
 const ProfilePage = () => {
     return(
         <main id="content" className="flex border border-gray-100 rounded-xl shadow-2xl">
