@@ -23,7 +23,7 @@ const SignupPage = () => {
         .then((response) => {
             setResponseMessage(response.data.message);
             alert(response.data.message);
-            navigator("/home")
+            navigator("/login")
         })
         .catch((err)=>{
             setResponseMessage(err.response?.data?.message || 'An error occurred');

@@ -25,12 +25,33 @@ function App() {
     const token = sessionStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
     }
-  },[]);
+  },[location.pathname]);
+
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === "token") {
+        const token = event.newValue;
+        if (token) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
 
   const [popupPost, setPopupPost] = useState(false);
   const [popupPoster, setPopupPoster] = useState(false); 
-
   return (
     <div className='app'>
       

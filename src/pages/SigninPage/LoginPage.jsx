@@ -20,8 +20,8 @@ const LoginPage = () => {
         await axios.post("http://localhost:8000/api/user/login", user)
         .then((response)=>{
             alert(response.data.message);
-            sessionStorage.setItem("token", response.data.accessToken)
-            navigator('/home');
+            sessionStorage.setItem("token", response.data.accessToken);
+            navigator("/home");
         })
         .catch((err)=>{
             setResponseMessage(err.response?.data?.message || 'An error occurred');

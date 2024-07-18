@@ -10,16 +10,19 @@ const SidebarComponent = (props) => {
 
   const logoutHandler =async (e) => {
     e.preventDefault();
-    const token = sessionStorage.getItem('token')
-    console.log(token)
-    await axios.post("http://localhost:8000/api/user/logout", token)
-    .then((res)=>{
-      alert(res.data.message);
-      navigator('login');
-    })
-    .catch((err)=>{
-      console.error(err.response?.data?.message);
-    })
+    sessionStorage.removeItem('token');
+    alert("log out success")
+    navigator("/login")
+    // const token = sessionStorage.getItem('token')
+    // console.log(token)
+    // await axios.post("http://localhost:8000/api/user/logout", token)
+    // .then((res)=>{
+    //   alert(res.data.message);
+    //   navigator('login');
+    // })
+    // .catch((err)=>{
+    //   console.error(err.response?.data?.message);
+    // })
   }
 
   return (
