@@ -2,8 +2,9 @@ import 'preline/preline';
 import {Link, useNavigate} from 'react-router-dom'
 import ffilm from '../../assets/image/ffilm.svg'
 import background from '../../assets/image/background.jpg'
-import { useState} from 'react'
+import { useContext, useState} from 'react'
 import axios from 'axios'
+import { AuthContext } from '../../assets/contexts/AuthContext';
 const LoginPage = () => {
     const [user, setUser] = useState({
         username:"",
@@ -11,18 +12,21 @@ const LoginPage = () => {
     });
 
     const navigator = useNavigate();
-
+    const { dispatch } = useContext(AuthContext);
     const [responseMessage, setResponseMessage] = useState('');
+
 
     const submitHandler = async (e) => {
         e.preventDefault();
         await axios.post("http://localhost:8000/api/user/login", user)
         .then((response)=>{
             alert(response.data.message);
-            sessionStorage.setItem("token", response.data.accessToken);
+            const { message, status, ...other } = response.data;
+            dispatch({ type: "LOGIN_SUCCESS", payload: other });
             navigator("/home");
         })
         .catch((err)=>{
+            dispatch({ type: "LOGIN_FAILURE", payload: err });
             setResponseMessage(err.response?.data?.message || 'An error occurred');
         })        
     }

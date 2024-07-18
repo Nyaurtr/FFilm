@@ -1,9 +1,11 @@
 import 'preline/preline'
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PostComponent from '../../components/PostComponent/PostComponent';
 import NotFollowedUserTagComponent from '../../components/UserTagComponent/NotFollowedUserTagComponent';
+import { AuthContext } from '../../assets/contexts/AuthContext';
 
 const HomePage = (props) => {
+  const {user} = useContext(AuthContext);
   const Users = [
     {userName: "User A", userID: "@user001", userImage:"", follow: false},
     {userName: "User B", userID: "@user002", userImage:"", follow: false},

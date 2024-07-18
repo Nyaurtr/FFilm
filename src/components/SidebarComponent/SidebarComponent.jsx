@@ -1,28 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
 import ffilm from '../../assets/image/ffilm.svg'
 import axios from 'axios'
+import { AuthContext } from '../../assets/contexts/AuthContext'
 
 const SidebarComponent = (props) => {
-
-  const user = props.userAccount[0];
   const navigator = useNavigate();
+  const { user } = useContext(AuthContext);
 
-  const logoutHandler =async (e) => {
+  const logoutHandler = async (e) => {
     e.preventDefault();
-    sessionStorage.removeItem('token');
-    alert("log out success")
-    navigator("/login")
-    // const token = sessionStorage.getItem('token')
-    // console.log(token)
-    // await axios.post("http://localhost:8000/api/user/logout", token)
-    // .then((res)=>{
-    //   alert(res.data.message);
-    //   navigator('login');
-    // })
-    // .catch((err)=>{
-    //   console.error(err.response?.data?.message);
-    // })
+    await axios.post("http://localhost:8000/api/user/logout", {
+      refreshToken: user.refreshToken,
+    })
+    .then((res)=>{
+      alert(res.data.message);
+      navigator("/login");
+      localStorage.setItem("user", null);
+      window.location.reload(false);
+    })
+    .catch((err)=>{
+      console.error(err.response?.data?.message);
+    });
   }
 
   return (
@@ -108,11 +107,11 @@ const SidebarComponent = (props) => {
           </div>
           <div className='mr-4 ml-4 m-4 gap-4'>
           {user && (
-                <Link to="/profile" className="flex p-2 mb-2 gap-4 items-center rounded-xl hover:bg-black hover:bg-opacity-25">
-                  <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
+                <Link to={`/profile/${user.data.username}`} className="flex p-2 mb-2 gap-4 items-center rounded-xl hover:bg-black hover:bg-opacity-25">
+                  <img className="size-[62px] rounded-full" src={user.data.profilePicture} alt="userAavatar"/>
                     <div>
-                      <div className="text-lg font-bold text-black ">{user.userName}</div>
-                      <div className="text-xs font-normal text-black">{user.userID}</div>
+                      <div className="text-lg font-bold text-black ">{user.data.username}</div>
+                      <div className="text-xs font-normal text-black">@{user.data.username}</div>
                     </div>
                 </Link>
               )}

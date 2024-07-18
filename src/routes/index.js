@@ -62,7 +62,7 @@ export const routes = [
         isShowSidebar: true,
     },
     {
-        path: '/profile',
+        path: '/profile/:username',
         page: ProfilePage,
         isShowSidebar: true,
     },

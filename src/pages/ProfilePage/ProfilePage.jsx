@@ -1,24 +1,55 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../assets/contexts/AuthContext";
+import axios from "axios";
+import Intercept from "../../Tools/refrech";
 
 
 const ProfilePage = () => {
+    const username = useParams().username;
+    const [posts, setPosts] = useState([]);
+    const { user: currentUser, dispatch } = useContext(AuthContext);
+    const [user, setCurrentUser] = useState({
+        username:"",
+        description:"",
+        profilePicture:""
+    })
+    const axiosJWT = axios.create();
+    Intercept(axiosJWT);
+    useEffect(() => {
+        const fetchUser = async () => {
+          const res = await axios.get(
+            "http://localhost:8000/api/user/u/" + username
+          );
+          setCurrentUser(res.data.user);
+          const pst = await axios.get(
+            "http://localhost:8000/api/article/u/" + username
+          );
+          setPosts(
+            pst.data.sort((p1, p2) => {
+              return new Date(p2.createdAt) - new Date(p1.createdAt);
+            })
+          );
+        };
+        fetchUser();
+      }, [username]);
     return(
         <main id="content" className="flex border border-gray-100 rounded-xl shadow-2xl">
         <div>
             <div className="relative slide-up">
                 <div className="overflow-hidden absolute min-h-[25rem] min-w-full rounded-t-xl">
                     <div aria-hidden="true" className="flex -z-[1] absolute -top-40 start-0 rounded-lg">
-                        <img className="" src="https://images.squarespace-cdn.com/content/v1/59cc767e8dd04135bf0c554c/1607053823960-6MKT4ZVLF7FPOSZ6IFCX/IMG_0339.jpg" alt="userAavatar"/>                        
+                        <img className="" src={"https://images.squarespace-cdn.com/content/v1/59cc767e8dd04135bf0c554c/1607053823960-6MKT4ZVLF7FPOSZ6IFCX/IMG_0339.jpg"} alt="userAavatar"/>                        
                     </div>
                 </div>
 
                 <div className="max-w-[85rem] px-4 pt-10 sm:px-6 lg:px-8 lg:pt-14 mx-auto">
                     <div className="mt-6 md:mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-3 xl:gap-6 lg:items-center">
                         <div className="flex flex-col bg-white border-2 justify-between items-center border-red-900 text-center shadow-xl rounded-2xl p-4 md:p-8 min-w-[17rem]">
-                            <img className="inline-block shadow-lg size-[150px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>                        
-                            <h4 className="font-bold text-2xl text-gray-800">userName</h4>
-                            <h4 className="font-normal text-sm text-gray-800">@userID</h4>
-                            <p className="mt-2 text-sm text-gray-500">desciption</p>
+                            <img className="inline-block shadow-lg size-[150px] rounded-full" src={user.profilePicture} alt="userAavatar"/>                        
+                            <h4 className="font-bold text-2xl text-gray-800">{user.username}</h4>
+                            <h4 className="font-normal text-sm text-gray-800">@{user.username}</h4>
+                            <p className="mt-2 text-sm text-gray-500">{user.description}</p>
 
                             <ul className="mt-7 space-y-2.5 text-sm">
                                 <li className="flex space-x-2">
