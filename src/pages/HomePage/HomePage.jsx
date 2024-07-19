@@ -20,7 +20,7 @@ const HomePage = (props) => {
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        const response = await axios.get("https://demo2-swart-six.vercel.app/api/user/searchUser");
+        const response = await axios.get("http://localhost:8000/api/user/searchUser");
         setalluser(response);
       } catch (error) {
         console.error("Error fetching users:", error);

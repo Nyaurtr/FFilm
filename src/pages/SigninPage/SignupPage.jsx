@@ -19,7 +19,7 @@ const SignupPage = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        await axios.post("https://demo2-swart-six.vercel.app/api/user/signup", user)
+        await axios.post("http://localhost:8000/api/user/signup", user)
         .then((response) => {
             setResponseMessage(response.data.message);
             alert(response.data.message);

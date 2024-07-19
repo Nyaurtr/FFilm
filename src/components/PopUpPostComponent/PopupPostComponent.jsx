@@ -40,7 +40,7 @@ const PopupPostComponent = (props) => {
         console.log(formDataInfo.imgurl)
         console.log(user)
 
-        await axiosJWT.post("https://demo2-swart-six.vercel.app/api/article", formDataInfo, {
+        await axiosJWT.post("http://localhost:8000/api/article", formDataInfo, {
           headers: { Authorization: "Bearer " + user.accessToken },
         })
         .then((res)=>{
