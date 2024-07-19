@@ -30,7 +30,7 @@ const FollowingPage = (props) => {
     const getFollowings = async () => {
       try {
         const FollowingsList = await axios.get(
-          "http://localhost:8000/api/user/followings/" + username
+          "https://demo2-swart-six.vercel.app/api/user/followings/" + username
         );
 
         setFollowings(FollowingsList.data.followings);

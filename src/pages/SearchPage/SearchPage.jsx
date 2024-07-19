@@ -43,7 +43,7 @@ const SearchPage = (props) => {
     props.onChange(0);
     const fetchPosts = async () => {
       const res = await axiosJWT.get(
-        `http://localhost:8000/api/article/timeline?page=${currPage}`,
+        `https://demo2-swart-six.vercel.app/api/article/timeline?page=${currPage}`,
         { headers: { Authorization: "Bearer " + user.accessToken } }
       );
       if (res.data.Articles.length === 1) {

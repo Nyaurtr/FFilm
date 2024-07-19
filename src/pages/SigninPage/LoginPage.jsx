@@ -18,7 +18,7 @@ const LoginPage = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8000/api/user/login", user)
+        await axios.post("https://demo2-swart-six.vercel.app/api/user/login", user)
         .then((response)=>{
             alert(response.data.message);
             const { message, status, ...other } = response.data;
