@@ -8,36 +8,36 @@ import axios from 'axios';
 
 
 const FollowingPage = (props) => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [loadingNewPosts, setLoadingNewPosts] = useState(true);
   const [currPage, setCurrPage] = useState(1);
   const [prevPage, setPrevPage] = useState(0);
   const [posts, setPosts] = useState([]);
   const listInnerRef = useRef();
   const [wasLastList, setWasLastList] = useState(false);
-
-  const [Followings, setFollowings] = useState([]);
   const username = user.data.username
-
-
-  props.onChange(0);
-
+  const [followingList, setFollowingList] = useState([]); 
+  props.onChange(0)
+  
   const axiosJWT = axios.create();
-
   Intercept(axiosJWT);
-
-  useEffect(() => {
-    const getFollowings = async () => {
-      try {
-        const FollowingsList = await axios.get(
-          "http://localhost:8000/api/user/followings/" + username
-        );
-
-        setFollowings(FollowingsList.data.followings);
-      } catch (e) {}
-    };
-    getFollowings();
-  }, [username]);
+  
+  
+  useEffect(()=>{
+    const FollowingsList = async () =>{
+        await axiosJWT.get("http://localhost:8000/api/user/followings/" + username)
+        .then((res) => {
+          setFollowingList(res.data.followings);
+          console.log("following",res.data.followings);
+          console.log("followinglist", followingList)
+          console.log("username",username)
+        })
+        .catch((err)=>{
+          console.error(err);
+        })
+      }
+    FollowingsList();
+    },[username])          
 
   useEffect(() => {
     if (props.rerenderFeed === 1) {
@@ -106,9 +106,9 @@ const FollowingPage = (props) => {
               <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
                 <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Followed</li>            
                 
-                {Followings.map((user, index)=>{
+                {followingList.map((user, index)=>{
                   return(
-                    <FollowedUserTagComponent user={user}/>
+                    <FollowedUserTagComponent user={user} onChange={props.onChange}/>
                 )})}    
               </ul>
             </div>           

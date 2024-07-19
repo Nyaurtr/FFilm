@@ -11,12 +11,16 @@ const NotFollowedUserTagComponent = (props) => {
     followers: [],
     followings: [],
   });
+
   const axiosJWT = axios.create();
   Intercept(axiosJWT);
+
   useEffect(() => {
     setFollowed(currentUser.data.followings.includes(user?._id));
   }, [currentUser.data.followings, user._id]);
-  const followHandler = async () => {
+
+
+  const followHandler = (async () => {
     try {
       if (followed) {
         await axiosJWT.put(
@@ -39,7 +43,9 @@ const NotFollowedUserTagComponent = (props) => {
       }
       setFollowed(!followed);
     } catch (e) {}
-  };
+  });
+
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(

@@ -14,26 +14,36 @@ const HomePage = (props) => {
   const [posts, setPosts] = useState([]);
   const listInnerRef = useRef();
   const [wasLastList, setWasLastList] = useState(false);
-  const [alluser, setalluser] = useState([]);
+  const [usersSearch, setusersSearch] = useState([]);
+  const [searchquery, setSearchquery] = useState("");
 
-
-  useEffect(() => {
-    const getAllUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/api/user/searchUser");
-        setalluser(response);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
-    getAllUsers();
-  }, []);
-
+  
   props.onChange(0);
-
+  
   const axiosJWT = axios.create();
-
+  
   Intercept(axiosJWT);
+  
+  useEffect(() => {
+    const getSearch = async () => {
+      try {
+        if (searchquery.length >= 0) {
+          const searchresult = await axios.get(
+            "http://localhost:8000/api/user/searchUser",
+            {
+              params: { search: searchquery },
+            }
+          );
+          setusersSearch(searchresult.data);
+        }
+      } catch (error) {}
+    };
+    const timer = setTimeout(() => {
+      getSearch();
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [searchquery]);
+
   useEffect(() => {
     if (props.rerenderFeed === 1) {
       setCurrPage(1);
@@ -84,6 +94,8 @@ const HomePage = (props) => {
     }
   };
 
+  
+
   return(
     <div className="app slide-up">     
     {/* post  */}
@@ -122,7 +134,7 @@ const HomePage = (props) => {
           <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
             <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Maybe you know</li>            
             
-            {alluser?.data?.users?.map((user, index)=>{
+            {usersSearch?.users?.map((user, index)=>{
               return(
                 <NotFollowedUserTagComponent data={user}/>
             )})}
