@@ -46,9 +46,6 @@ const NotFollowedUserTagComponent = (props) => {
         "http://localhost:8000/api/user/u/" + username
       );
       setCurrentUser(res.data.user);
-      const pst = await axios.get(
-        "http://localhost:8000/api/article/u/" + username
-      );
     };
     fetchUser();
   }, [username]);
