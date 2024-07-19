@@ -93,7 +93,7 @@ const FollowingPage = (props) => {
         <div className="app">     
         {/* post  */}
           <div className="flex w-full h-full gap-4 slide-up">     
-            <div onScroll={onScroll} ref={listInnerRef} className='flex-col flex space-y-4 min-w-[75%] items-center'>                      
+            <div onScroll={onScroll} ref={listInnerRef} className='flex-col flex space-y-4 min-w-[75%] items-center gap-12'>                      
               {posts.map((post, index) =>{
               return(
                 <PostComponent post={post} key={post._id} rerenderFeed={props.rerenderFeed} onChange={props.onChange} setTrigger={props}/>

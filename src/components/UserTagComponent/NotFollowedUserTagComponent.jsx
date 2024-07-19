@@ -4,7 +4,8 @@ import axios from 'axios';
 import Intercept from '../../Tools/refrech';
 
 const NotFollowedUserTagComponent = (props) => {
-  const {user: currentUser, dispatch} = useContext(AuthContext)
+  const username = props.data.username;
+  const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(true);
   const [user, setCurrentUser] = useState({
     followers: [],
@@ -12,7 +13,6 @@ const NotFollowedUserTagComponent = (props) => {
   });
   const axiosJWT = axios.create();
   Intercept(axiosJWT);
-  console.log(props);
   useEffect(() => {
     setFollowed(currentUser.data.followings.includes(user?._id));
   }, [currentUser.data.followings, user._id]);
@@ -20,7 +20,7 @@ const NotFollowedUserTagComponent = (props) => {
     try {
       if (followed) {
         await axiosJWT.put(
-          `http://localhost:8000/api/user/${props.data.username}/unfollow`,
+          `http://localhost:8000/api/user/${username}/unfollow`,
           {},
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
@@ -29,7 +29,7 @@ const NotFollowedUserTagComponent = (props) => {
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
         await axiosJWT.put(
-          `http://localhost:8000/api/user/${props.data.username}/follow`,
+          `http://localhost:8000/api/user/${username}/follow`,
           {},
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
@@ -40,6 +40,18 @@ const NotFollowedUserTagComponent = (props) => {
       setFollowed(!followed);
     } catch (e) {}
   };
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(
+        "http://localhost:8000/api/user/u/" + username
+      );
+      setCurrentUser(res.data.user);
+      const pst = await axios.get(
+        "http://localhost:8000/api/article/u/" + username
+      );
+    };
+    fetchUser();
+  }, [username]);
   
   return (
     <div>
