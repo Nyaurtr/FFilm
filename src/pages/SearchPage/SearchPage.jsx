@@ -338,10 +338,9 @@ const SearchPage = (props) => {
                     <div className="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 text-3xl font-bold">
                     Posts
                     </div>
-                    
                     {posts.map((post, index) =>{
                     return(
-                      <div className='flex p-4 flex-col items-center'>
+                      <div className='flex p-4 mb-14 flex-col items-center'>
                         <PostComponent post={post} setTrigger={props} />  
                       </div>
                     )

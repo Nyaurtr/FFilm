@@ -8,36 +8,37 @@ import axios from 'axios';
 
 
 const FollowingPage = (props) => {
-    const { user } = useContext(AuthContext);
-    const [loadingNewPosts, setLoadingNewPosts] = useState(true);
-    const [currPage, setCurrPage] = useState(1);
-    const [prevPage, setPrevPage] = useState(0);
-    const [posts, setPosts] = useState([]);
-    const listInnerRef = useRef();
-    const [wasLastList, setWasLastList] = useState(false);
+  const { user, dispatch } = useContext(AuthContext);
+  const [loadingNewPosts, setLoadingNewPosts] = useState(true);
+  const [currPage, setCurrPage] = useState(1);
+  const [prevPage, setPrevPage] = useState(0);
+  const [posts, setPosts] = useState([]);
+  const listInnerRef = useRef();
+  const [wasLastList, setWasLastList] = useState(false);
 
-    const Users = [
-        {userName: "User A", userID: "@user001", userImage:"", numberNewPost:"123"},
-        {userName: "User B", userID: "@user002", userImage:"", numberNewPost:"123"},
-        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"12"},
-        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"123"},
-        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"123"},
-        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"96"},
-        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"123"},
-        {userName: "User C", userID: "@user003", userImage:"", numberNewPost:"22"},
-      ]
-    
-      const [users, setUsers] = useState([]);
-    
-      useEffect(()=>{
-        setUsers(Users);
-      }, [])
+  const [Followings, setFollowings] = useState([]);
+  const username = user.data.username
 
-      props.onChange(0);
+
+  props.onChange(0);
 
   const axiosJWT = axios.create();
 
   Intercept(axiosJWT);
+
+  useEffect(() => {
+    const getFollowings = async () => {
+      try {
+        const FollowingsList = await axios.get(
+          "http://localhost:8000/api/user/followings/" + username
+        );
+
+        setFollowings(FollowingsList.data.followings);
+      } catch (e) {}
+    };
+    getFollowings();
+  }, [username]);
+
   useEffect(() => {
     if (props.rerenderFeed === 1) {
       setCurrPage(1);
@@ -105,7 +106,7 @@ const FollowingPage = (props) => {
               <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
                 <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Followed</li>            
                 
-                {users.map((user, index)=>{
+                {Followings.map((user, index)=>{
                   return(
                     <FollowedUserTagComponent user={user}/>
                 )})}    

@@ -12,18 +12,40 @@ const HomePage = (props) => {
   const [currPage, setCurrPage] = useState(1);
   const [prevPage, setPrevPage] = useState(0);
   const [posts, setPosts] = useState([]);
+  const [showSearch, setshowSearch] = useState(false);
+  const [usersSearch, setusersSearch] = useState([]);
+  const [searchquery, setSearchquery] = useState("");
   const listInnerRef = useRef();
   const [wasLastList, setWasLastList] = useState(false);
 
-  const Users = [
-    {userName: "User A", userID: "@user001", userImage:"", follow: false}
-  ]
+  const searchHandler = (e) => {
+    if (searchquery.length < 1) {
+      setshowSearch(false);
+    } else {
+      setshowSearch(true);
+    }
+    setSearchquery(e.target.value);
+  }; 
 
-  const [users, setUsers] = useState([]);
-
-  useEffect(()=>{
-    setUsers(Users)
-  },[])
+  useEffect(() => {
+    const getSearch = async () => {
+      try {
+        if (searchquery.length >= 1) {
+          const searchresult = await axios.get(
+            "http://localhost:8000/api/user/searchUser",
+            {
+              params: { search: searchquery },
+            }
+          );
+          setusersSearch(searchresult.data);
+        }
+      } catch (error) {}
+    };
+    const timer = setTimeout(() => {
+      getSearch();
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [searchquery]);
 
   props.onChange(0);
 
@@ -80,13 +102,11 @@ const HomePage = (props) => {
     }
   };
 
-  console.log(posts)
-
   return(
     <div className="app slide-up">     
     {/* post  */}
       <div div className="flex w-full h-full gap-4 slide-up">     
-        <div onScroll={onScroll} ref={listInnerRef} className='flex-col flex space-y-4 min-w-[75%] items-center'>     
+        <div onScroll={onScroll} ref={listInnerRef} className='flex-col flex space-y-4 min-w-[75%] items-center gap-12'>     
           <div className="flex bg-white border border-gray-200 shadow-xl rounded-xl p-4 min-w-[75%] gap-3">
             <img className="size-[62px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="userAavatar"/>
             <input type="text" onClick={() => props.setTrigger(true)} id="input-label" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-nne" placeholder="Which do you think right now?"/>
@@ -120,9 +140,9 @@ const HomePage = (props) => {
           <ul className="flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl gap-4 pb-4">
             <li className="flex items-start justify-between text-xl font-bold px-4 py-3 border-b border-gray-200"> Maybe you know</li>            
             
-            {users.map((user, index)=>{
+            {usersSearch.map((user, index)=>{
               return(
-                <NotFollowedUserTagComponent user={user}/>
+                <NotFollowedUserTagComponent data={user}/>
             )})}
 
           </ul>

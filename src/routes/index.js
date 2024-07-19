@@ -13,6 +13,7 @@ import AdminPage from "../admin/pages/AdminPage/AdminPage";
 import SearchPage from "../pages/SearchPage/SearchPage";
 import UserPage from "../admin/pages/UserPage/UserPage";
 import StatPage from "../admin/pages/StatPage/StatPage";
+import OnworkingPage from "../pages/OnworkingPage/OnworkingPage";
 
 export const routes = [
     {
@@ -41,7 +42,8 @@ export const routes = [
     {
         path: '/suggestions',
         props: { setTriggerPost: 'setPopupPoster', rerenderFeed:"rerenderFeed", onChange:"handleChange"},
-        page: SuggestionsPage,
+        // page: SuggestionsPage,
+        page: OnworkingPage,
         isShowSidebar: true,
     },
     {
@@ -53,7 +55,8 @@ export const routes = [
     },
     {
         path: '/messenger',
-        page: Messenger,
+        // page: Messenger,
+        page: OnworkingPage,
         isShowSidebar: true,
     },
     {
