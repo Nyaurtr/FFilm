@@ -6,9 +6,6 @@ import NotificationPage from "../pages/NotificationPage/NotificationPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import SuggestionsPage from "../pages/SuggestionPage/SuggestionPage";
 
-import LoginPage from "../pages/SigninPage/LoginPage";
-import SignupPage from "../pages/SigninPage/SignupPage"; 
-import ResetPasswordPage from "../pages/SigninPage/ResetPasswordPage";
 import AdminPage from "../admin/pages/AdminPage/AdminPage";
 import SearchPage from "../pages/SearchPage/SearchPage";
 import UserPage from "../admin/pages/UserPage/UserPage";
@@ -74,6 +71,11 @@ export const routes = [
     {
         path: '/adminpage/*',
         page: AdminPage,
+        isShowSidebar: false,
+    },
+    {
+        path: '/*',
+        page: OnworkingPage,
         isShowSidebar: false,
     },
 ];
