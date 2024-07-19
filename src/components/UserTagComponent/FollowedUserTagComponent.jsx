@@ -14,7 +14,7 @@ const FollowedUserTagComponent = (props) => {
   
   const unFollow = (async () => {
     await axiosJWT.put(
-      `http://localhost:8000/api/user/${props.user.username}/unfollow`,
+      `https://demo2-swart-six.vercel.app/api/user/${props.user.username}/unfollow`,
       {},
       {
         headers: {

@@ -14,7 +14,7 @@ const getCookie = (name) => {
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api', // Your API base URL
+  baseURL: 'hhttp://localhost:8000/api', // Your API base URL
 });
 
 // Add a request interceptor to include the access token in the headers
