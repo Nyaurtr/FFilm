@@ -31,7 +31,7 @@ const PostComponent = (props) => {
   // };
   const likeHandler = async () => {
     try {
-      await axiosJWT.get(`https://demo2-swart-six.vercel.app/api/article/${post._id}/like`, {
+      await axiosJWT.get(`http://localhost:8000/api/article/${post._id}/like`, {
         headers: { Authorization: "Bearer " + user.accessToken },
       });
     } catch (error) {}

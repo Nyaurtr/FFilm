@@ -20,7 +20,7 @@ const NotFollowedUserTagComponent = (props) => {
     try {
       if (followed) {
         await axiosJWT.put(
-          `https://demo2-swart-six.vercel.app/api/user/${username}/unfollow`,
+          `http://localhost:8000/api/user/${username}/unfollow`,
           {},
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
@@ -29,7 +29,7 @@ const NotFollowedUserTagComponent = (props) => {
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
         await axiosJWT.put(
-          `https://demo2-swart-six.vercel.app/api/user/${username}/follow`,
+          `http://localhost:8000/api/user/${username}/follow`,
           {},
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
@@ -43,7 +43,7 @@ const NotFollowedUserTagComponent = (props) => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        "https://demo2-swart-six.vercel.app/api/user/u/" + username
+        "http://localhost:8000/api/user/u/" + username
       );
       setCurrentUser(res.data.user);
     };

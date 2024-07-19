@@ -9,7 +9,7 @@ const FollowedUserTagComponent = (props) => {
   Intercept(axiosJWT);
   const unFollow = (async () => {
     await axiosJWT.put(
-      `https://demo2-swart-six.vercel.app/api/user/${props.user.username}/unfollow`,
+      `http://localhost:8000/api/user/${props.user.username}/unfollow`,
       {},
       {
         headers: {

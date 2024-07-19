@@ -10,7 +10,7 @@ const SidebarComponent = (props) => {
 
   const logoutHandler = async (e) => {
     e.preventDefault();
-    await axios.post("https://demo2-swart-six.vercel.app/api/user/logout", {
+    await axios.post("http://localhost:8000/api/user/logout", {
       refreshToken: user.refreshToken,
     })
     .then((res)=>{
