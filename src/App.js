@@ -18,7 +18,7 @@ function App() {
   const location = useLocation();
   // const [isAuthenticated, setIsAuthenticated] = useState(false)
   const { user } = useContext(AuthContext)
-  console(user)
+  // console(user)
   // const role = user.data.role
 
   const [rerenderFeed, setRerenderFeed] = useState(0);
