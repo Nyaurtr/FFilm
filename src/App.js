@@ -20,8 +20,6 @@ function App() {
   const { user } = useContext(AuthContext)
   const role = user.data.role
 
-  console.log(role)
-
   const [rerenderFeed, setRerenderFeed] = useState(0);
   const handleChange = useCallback((newValue) => {
     setRerenderFeed(newValue);
