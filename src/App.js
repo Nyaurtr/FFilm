@@ -12,6 +12,7 @@ import { AuthContext} from "./assets/contexts/AuthContext"
 import LoginPage from './pages/SigninPage/LoginPage';
 import SignupPage from './pages/SigninPage/SignupPage';
 import ResetPasswordPage from './pages/SigninPage/ResetPasswordPage';
+import AdminPage from './admin/pages/AdminPage/AdminPage';
 
 function App() {
   const location = useLocation();
@@ -91,6 +92,10 @@ function App() {
         <Route
           path="/resetPassword"
           element={!user ? <ResetPasswordPage /> : <Navigate to="/home" />}
+        />
+        <Route
+          path="/adminpage/*"
+          element={(role==="admin")? <AdminPage/> : <Navigate to="/home"/>}
         />
         {routes.map((route, index) => {
           const Page = route.page;
