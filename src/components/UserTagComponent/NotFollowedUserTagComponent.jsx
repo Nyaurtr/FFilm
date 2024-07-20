@@ -29,7 +29,13 @@ const NotFollowedUserTagComponent = (props) => {
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
           }
-        );
+        )
+        .then((res)=>{
+          console.log("res unfollow", res)
+        })
+        .catch((err)=>{
+          console.error("err unfollow", err)
+        })
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
         await axiosJWT.put(
@@ -38,15 +44,18 @@ const NotFollowedUserTagComponent = (props) => {
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
           }
-        );
+        )
+        .then((res)=>{
+          console.log("res follow", res)
+        })
+        .catch((err)=>{
+          console.error("err follow", err)
+        })
         dispatch({ type: "FOLLOW", payload: user._id });
       }
       setFollowed(!followed);
     } catch (e) {}
   });
-
-  console.log(currentUser)
-
 
   useEffect(() => {
     const fetchUser = async () => {
