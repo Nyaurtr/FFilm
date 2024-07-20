@@ -70,6 +70,7 @@ export const routes = [
     },
     {
         path: '/adminpage/*',
+        props:{onChange:"handleChange"},
         page: AdminPage,
         isShowSidebar: false,
     },

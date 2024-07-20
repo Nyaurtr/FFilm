@@ -18,8 +18,9 @@ function App() {
   const location = useLocation();
   // const [isAuthenticated, setIsAuthenticated] = useState(false)
   const { user } = useContext(AuthContext)
-  // console(user)
-  // const role = user.data.role
+  const role = user.data.role
+
+  console.log(role)
 
   const [rerenderFeed, setRerenderFeed] = useState(0);
   const handleChange = useCallback((newValue) => {
@@ -92,10 +93,10 @@ function App() {
           path="/resetPassword"
           element={!user ? <ResetPasswordPage /> : <Navigate to="/home" />}
         />
-        {/* <Route
+        <Route
           path="/adminpage/*"
           element={(role==="admin")? <AdminPage/> : <Navigate to="/home"/>}
-        /> */}
+        />
         {routes.map((route, index) => {
           const Page = route.page;
           const Layout = route.isShowSidebar ? DefaultComponent : Fragment;
