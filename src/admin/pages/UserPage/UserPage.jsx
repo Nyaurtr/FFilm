@@ -1,43 +1,35 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState, useEffect } from 'react';
+import { AuthContext } from '../../../assets/contexts/AuthContext';
+import Intercept from '../../../Tools/refrech';
+import axios from 'axios';
 
-const UserPage = () => {
 
-    const Users = [
-        {
-            user: {name: 'Christina Bersh', email: 'christina@site.com', avatar: ""},
-            numberOfPosts: 2350,
-            lastAcivity: "28 Jan, 18:57",
-            status: "Active",
-            verification: "1/5",
-            verificationRate: 20,
-            create:"28 Dec, 12:12",
-        },
-        {
-            user: {name: 'David Harrison', email: 'christina@site.com', avatar: ""},
-            numberOfPosts: 12,
-            lastAcivity: "28 Jan, 18:57",
-            status: "Warning",
-            verification: "3/5",
-            verificationRate: 60,
-            create:"28 Dec, 12:12",
-        },
-        {
-            user: {name: 'Anne Richard', email: 'anne@site.com', avatar: ""},
-            numberOfPosts: 0,
-            lastAcivity: "28 Jan, 18:57",
-            status: "Danger",
-            verification: "0/5",
-            verificationRate: 0,
-            create:"28 Dec, 12:12",
-        },
-    ]
+const UserPage = (props) => {
+    const [usersSearch, setusersSearch] = useState([]);
+    const [searchquery, setSearchquery] = useState("");
 
-    const [users, setUsers] = useState([]);
+    props.onChange(0)
 
-    useEffect(() =>{
-        setUsers(Users)
-    },[]);
+    useEffect(() => {
+        const getSearch = async () => {
+          try {
+            if (searchquery.length >= 0) {
+              const searchresult = await axios.get(
+                "https://ffilm.onrender.com/api/user/searchUser",
+                {
+                  params: { search: searchquery },
+                }
+              );
+              setusersSearch(searchresult.data);
+            }
+          } catch (error) {}
+        };
+        const timer = setTimeout(() => {
+          getSearch();
+        }, 700);
+        return () => clearTimeout(timer);
+      }, [searchquery]);
 
     const renderStatusIcon = (status) => {
         if (status === 'Active') {
@@ -174,7 +166,7 @@ const UserPage = () => {
                     </thead>
 
                     <tbody class="divide-y divide-gray-200">
-                    {users.map((user, index) => {
+                    {usersSearch.map((user, index) => {
                             return (
                                 <>
                                     <tr>
@@ -191,38 +183,39 @@ const UserPage = () => {
                                             <div class="flex items-center gap-x-3">
                                             <img class="inline-block size-[38px] rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Description"/>
                                             <div class="grow">
-                                                <span class="block text-sm font-semibold text-gray-800">{user.user.name}</span>
-                                                <span class="block text-sm text-gray-500">{user.user.email}</span>
+                                                <span class="block text-sm font-semibold text-gray-800">{user.users.usersname}</span>
+                                                <span class="block text-sm text-gray-500">{user.users._id}</span>
                                             </div>
                                             </div>
                                         </div>
                                         </td>
                                         <td class="h-px w-72 whitespace-nowrap">
                                         <div class="px-6 py-3">
-                                            <span class="block text-sm font-semibold text-gray-800">{user.numberOfPosts}</span>
+                                            <span class="block text-sm font-semibold text-gray-800">onWorking feature</span>
                                         </div>
                                         </td>
                                         <td class="h-px w-72 whitespace-nowrap">
                                         <div class="px-6 py-3">
-                                            <span class="block text-sm font-semibold text-gray-800">{user.lastAcivity}</span>
+                                            <span class="block text-sm font-semibold text-gray-800">onWorking feature</span>
                                         </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
-                                        {renderStatusIcon(user.status)}
+                                        {/* {renderStatusIcon(user.status)} */}
+                                        onWorking feature
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-3">
                                             <div class="flex items-center gap-x-3">
-                                            <span class="text-xs text-gray-500">{user.verification}</span>
+                                            <span class="text-xs text-gray-500">onWorking feature</span>
                                             <div class="flex w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                                                <div class="flex flex-col justify-center overflow-hidden bg-gray-800" style={{ width: `${user.verificationRate}%` }} role="progressbar" aria-valuenow={user.verificationRate} aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="flex flex-col justify-center overflow-hidden bg-gray-800" style={{ width: `${user.verificationRate}%` }} role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                             </div>
                                         </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">
                                         <div class="px-6 py-3">
-                                            <span class="text-sm text-gray-500">{user.create}</span>
+                                            <span class="text-sm text-gray-500">onWorking feature</span>
                                         </div>
                                         </td>
                                         <td class="size-px whitespace-nowrap">

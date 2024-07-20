@@ -25,12 +25,9 @@ const FollowingPage = (props) => {
   
   useEffect(()=>{
     const FollowingsList = async () =>{
-        await axiosJWT.get("https://ffilm.onrender.com/api/user/followings/" + username)
+        await axios.get("https://ffilm.onrender.com/api/user/followings/" + username)
         .then((res) => {
           setFollowingList(res.data.followings);
-          console.log("following",res.data.followings);
-          console.log("followinglist", followingList)
-          console.log("username",username)
         })
         .catch((err)=>{
           console.error(err);
