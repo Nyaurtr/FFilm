@@ -18,7 +18,6 @@ function App() {
   const location = useLocation();
   // const [isAuthenticated, setIsAuthenticated] = useState(false)
   const { user } = useContext(AuthContext)
-  const role = user.data.role
 
   const [rerenderFeed, setRerenderFeed] = useState(0);
   const handleChange = useCallback((newValue) => {
@@ -93,7 +92,7 @@ function App() {
         />
         <Route
           path="/adminpage/*"
-          element={(role==="admin")? <AdminPage/> : <Navigate to="/home"/>}
+          element={(user.data.role==="admin")? <AdminPage/> : <Navigate to="/home"/>}
         />
         {routes.map((route, index) => {
           const Page = route.page;
