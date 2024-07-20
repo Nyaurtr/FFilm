@@ -18,7 +18,7 @@ function App() {
   const location = useLocation();
   // const [isAuthenticated, setIsAuthenticated] = useState(false)
   const { user } = useContext(AuthContext)
-  const role = user.data.role
+  const role = user?.data.role
 
   console.log(role)
 
@@ -95,7 +95,7 @@ function App() {
         />
         <Route
           path="/adminpage/*"
-          element={!user? <Navigate to="login" /> : (user.data.role === "admin"? <AdminPage/> : <Navigate to="/home"/>)}
+          element={!user? <Navigate to="login" /> : (role === "admin"? <AdminPage/> : <Navigate to="/home"/>)}
         />
         {routes.map((route, index) => {
           const Page = route.page;
