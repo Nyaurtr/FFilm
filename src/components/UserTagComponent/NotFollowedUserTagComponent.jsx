@@ -45,6 +45,8 @@ const NotFollowedUserTagComponent = (props) => {
     } catch (e) {}
   });
 
+  console.log(currentUser)
+
 
   useEffect(() => {
     const fetchUser = async () => {
