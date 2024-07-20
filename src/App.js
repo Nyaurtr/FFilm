@@ -17,6 +17,7 @@ function App() {
   const location = useLocation();
   // const [isAuthenticated, setIsAuthenticated] = useState(false)
   const { user } = useContext(AuthContext)
+  console.log(user)
 
   const [rerenderFeed, setRerenderFeed] = useState(0);
   const handleChange = useCallback((newValue) => {
