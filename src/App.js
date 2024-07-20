@@ -95,7 +95,7 @@ function App() {
         />
         <Route
           path="/adminpage/*"
-          element={(role==="admin")? <AdminPage/> : <Navigate to="/home"/>}
+          element={!user? <Navigate to="login" /> : (user.data.role === "admin"? <AdminPage/> : <Navigate to="/home"/>)}
         />
         {routes.map((route, index) => {
           const Page = route.page;
