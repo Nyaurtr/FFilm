@@ -25,7 +25,7 @@ const FollowingPage = (props) => {
   
   useEffect(()=>{
     const FollowingsList = async () =>{
-        await axiosJWT.get("http://localhost:8000/api/user/followings/" + username)
+        await axiosJWT.get("https://ffilm.onrender.com/api/user/followings/" + username)
         .then((res) => {
           setFollowingList(res.data.followings);
           console.log("following",res.data.followings);
@@ -49,7 +49,7 @@ const FollowingPage = (props) => {
     props.onChange(0);
     const fetchPosts = async () => {
       const res = await axiosJWT.get(
-        `http://localhost:8000/api/article/timeline?page=${currPage}`,
+        `https://ffilm.onrender.com/api/article/timeline?page=${currPage}`,
         { headers: { Authorization: "Bearer " + user.accessToken } }
       );
       if (res.data.Articles.length === 1) {

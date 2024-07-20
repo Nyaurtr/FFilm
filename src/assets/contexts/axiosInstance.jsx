@@ -14,7 +14,7 @@ const getCookie = (name) => {
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'hhttp://localhost:8000/api', // Your API base URL
+  baseURL: 'https://ffilm.onrender.com/api', // Your API base URL
 });
 
 // Add a request interceptor to include the access token in the headers
@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshToken = getCookie('refreshToken'); // Function to get refresh token from cookie
-        const response = await axios.post('http://localhost:8000/api/user/refreshToken', { token: refreshToken });
+        const response = await axios.post('https://ffilm.onrender.com/api/user/refreshToken', { token: refreshToken });
         const newAccessToken = response.data.accessToken;
         sessionStorage.setItem('token', newAccessToken);
         originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;

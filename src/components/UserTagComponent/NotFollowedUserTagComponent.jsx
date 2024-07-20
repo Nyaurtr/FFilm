@@ -24,7 +24,7 @@ const NotFollowedUserTagComponent = (props) => {
     try {
       if (followed) {
         await axiosJWT.put(
-          `http://localhost:8000/api/user/${username}/unfollow`,
+          `https://ffilm.onrender.com/api/user/${username}/unfollow`,
           {},
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
@@ -33,7 +33,7 @@ const NotFollowedUserTagComponent = (props) => {
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
         await axiosJWT.put(
-          `http://localhost:8000/api/user/${username}/follow`,
+          `https://ffilm.onrender.com/api/user/${username}/follow`,
           {},
           {
             headers: { Authorization: "Bearer " + currentUser.accessToken },
@@ -49,7 +49,7 @@ const NotFollowedUserTagComponent = (props) => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        "http://localhost:8000/api/user/u/" + username
+        "https://ffilm.onrender.com/api/user/u/" + username
       );
       setCurrentUser(res.data.user);
     };

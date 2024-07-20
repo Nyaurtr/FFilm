@@ -19,11 +19,11 @@ const ProfilePage = () => {
     useEffect(() => {
         const fetchUser = async () => {
           const res = await axios.get(
-            "http://localhost:8000/api/user/u/" + username
+            "https://ffilm.onrender.com/api/user/u/" + username
           );
           setCurrentUser(res.data.user);
           const pst = await axios.get(
-            "http://localhost:8000/api/article/u/" + username
+            "https://ffilm.onrender.com/api/article/u/" + username
           );
           setPosts(
             pst.data.sort((p1, p2) => {

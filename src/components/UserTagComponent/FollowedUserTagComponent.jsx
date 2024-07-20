@@ -14,7 +14,7 @@ const FollowedUserTagComponent = (props) => {
   
   const unFollow = (async () => {
     await axiosJWT.put(
-      `http://localhost:8000/api/user/${props.user.username}/unfollow`,
+      `https://ffilm.onrender.com/api/user/${props.user.username}/unfollow`,
       {},
       {
         headers: {

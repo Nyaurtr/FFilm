@@ -29,7 +29,7 @@ const HomePage = (props) => {
       try {
         if (searchquery.length >= 0) {
           const searchresult = await axios.get(
-            "http://localhost:8000/api/user/searchUser",
+            "https://ffilm.onrender.com/api/user/searchUser",
             {
               params: { search: searchquery },
             }
